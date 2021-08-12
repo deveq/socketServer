@@ -10,9 +10,17 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+
+const corsOptions = {
+    cors : true,
+    origins : ["https://localhost:3000"],
+    credential : true
+}
+
+const io = socketio(server, corsOptions);
 app.use(cors());
 app.use(router);
+
 
 io.on('connect', socket => {
     console.log('새로운 connection이 발생했습니다.');
